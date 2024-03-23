@@ -13,7 +13,9 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
   //implement the observable method to fetch data from baseUrl
-  getProductList(): Observable<Product[]> {
+  getProductList(theCategoryId: number): Observable<Product[]> {
+    //@todo: need to build a url based on given category id
+
     return this.httpClient
       .get<GetResponse>(this.baseUrl)
       .pipe(
