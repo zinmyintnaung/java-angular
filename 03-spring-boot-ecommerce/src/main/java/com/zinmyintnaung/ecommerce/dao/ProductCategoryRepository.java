@@ -10,4 +10,5 @@ import com.zinmyintnaung.ecommerce.entitiy.ProductCategory;
 @RepositoryRestResource(collectionResourceRel = "productCategory", path="product-category") //define custom JSON + end-points name
 public interface ProductCategoryRepository extends JpaRepository <ProductCategory, Long>{
     //no need to write implementation class, we will get crud from JpaRepository
+    
 }
