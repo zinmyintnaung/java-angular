@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../common/product';
 import { ActivatedRoute } from '@angular/router';
+import { CartItem } from '../../common/cart-item';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -30,6 +32,7 @@ export class ProductListComponent implements OnInit {
   //by injecting the ActivatedRoute, angular will create instance of this component and render inside <router-outlet></router-outlet>
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute
   ) {}
 
@@ -122,5 +125,16 @@ export class ProductListComponent implements OnInit {
       this.thePageSize = data.page.size;
       this.theTotalElements = data.page.totalElements;
     };
+  }
+
+  addToCart(theProduct: Product) {
+    console.log(theProduct);
+    const theCartItem = new CartItem(
+      theProduct.id!,
+      theProduct.name!,
+      theProduct.imageUrl!,
+      theProduct.unitPrice!
+    );
+    this.cartService.addToCart(theCartItem);
   }
 }
