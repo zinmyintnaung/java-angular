@@ -11,8 +11,10 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import com.zinmyintnaung.ecommerce.entitiy.Country;
 import com.zinmyintnaung.ecommerce.entitiy.Product;
 import com.zinmyintnaung.ecommerce.entitiy.ProductCategory;
+import com.zinmyintnaung.ecommerce.entitiy.State;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
@@ -45,6 +47,19 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         .forDomainType(ProductCategory.class)
         .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
         .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+
+
+        //disable HTTP methods for country  as defined above in theUnsupportedActions array
+        config.getExposureConfiguration()
+            .forDomainType(Country.class)
+            .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+            .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        
+         //disable HTTP methods for country  as defined above in theUnsupportedActions array
+         config.getExposureConfiguration()
+            .forDomainType(State.class)
+            .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+            .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
 
         //call internal helper method to expose the ids
         exposeIds(config);
