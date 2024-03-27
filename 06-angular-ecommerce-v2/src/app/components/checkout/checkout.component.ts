@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Luv2ShopFormService } from '../../services/luv2-shop-form.service';
+import { Country } from '../../common/country';
+import { State } from '../../common/state';
 
 @Component({
   selector: 'app-checkout',
@@ -15,6 +17,11 @@ export class CheckoutComponent implements OnInit {
 
   creditCardMonths: number[] = [];
   creditCardYears: number[] = [];
+
+  countries: Country[] = [];
+
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,12 +62,19 @@ export class CheckoutComponent implements OnInit {
     //populate credit card months and year using service
     const startMonth: number = new Date().getMonth() + 1; //Javascript months are zero based
     this.luv2ShopService.getCreditCardMonths(startMonth).subscribe((data) => {
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
       this.creditCardMonths = data;
     });
     this.luv2ShopService.getCreditCardYears().subscribe((data) => {
       this.creditCardYears = data;
     });
+
+    //populate conntries
+    this.luv2ShopService.getCountries().subscribe((data) => {
+      this.countries = data;
+    });
+
+    //populate states
   }
 
   copyShippingAddressToBillingAddress(event: any) {
@@ -88,8 +102,24 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.luv2ShopService.getCreditCardMonths(startMonth).subscribe((data) => {
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
       this.creditCardMonths = data;
+    });
+  }
+
+  getStates(formGroupName: string) {
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+    const countryCode = formGroup?.value.country.code;
+
+    this.luv2ShopService.getStates(countryCode).subscribe((data) => {
+      //console.log(data);
+      if (formGroupName === 'shippingAddress') {
+        this.shippingAddressStates = data;
+      } else {
+        this.billingAddressStates = data;
+      }
+      //select first item by default, not leaving state drop down empty upon selecting country
+      formGroup?.get('state')?.setValue(data[0]);
     });
   }
 

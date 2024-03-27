@@ -37,32 +37,28 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         HttpMethod[] theUnsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
 
         //disable HTTP methods for product as defined above in theUnsupportedActions array
-        config.getExposureConfiguration()
-            .forDomainType(Product.class)
-            .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-            .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        disableHttpMethods(Product.class, config, theUnsupportedActions);
 
         //disable HTTP methods for product category as defined above in theUnsupportedActions array
-        config.getExposureConfiguration()
-        .forDomainType(ProductCategory.class)
-        .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-        .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        disableHttpMethods(ProductCategory.class, config, theUnsupportedActions);
 
 
         //disable HTTP methods for country  as defined above in theUnsupportedActions array
-        config.getExposureConfiguration()
-            .forDomainType(Country.class)
-            .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-            .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        disableHttpMethods(Country.class, config, theUnsupportedActions);
         
          //disable HTTP methods for country  as defined above in theUnsupportedActions array
-         config.getExposureConfiguration()
-            .forDomainType(State.class)
-            .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
-            .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+         disableHttpMethods(State.class, config, theUnsupportedActions);
 
         //call internal helper method to expose the ids
         exposeIds(config);
+    }
+
+
+    private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {
+        config.getExposureConfiguration()
+            .forDomainType(theClass)
+            .withItemExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
+            .withCollectionExposure((metadata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
     }
 
     private void exposeIds(RepositoryRestConfiguration config){

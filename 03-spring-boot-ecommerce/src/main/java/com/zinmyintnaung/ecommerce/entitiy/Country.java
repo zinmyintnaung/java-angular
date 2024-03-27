@@ -2,6 +2,8 @@ package com.zinmyintnaung.ecommerce.entitiy;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,9 +22,8 @@ public class Country {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "country", 
-        fetch = FetchType.LAZY,
-        cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private List<State> states;
 
 }

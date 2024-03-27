@@ -15,7 +15,7 @@ public class State {
     @Column(name="name")
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="country_id")
     private Country country;
 }
