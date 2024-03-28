@@ -29,10 +29,10 @@
                 <div class="row no-gutters">
                   <div class="col">
                     <button
-                      (click)="incrementQuantity(tempCartItem)"
-                      class="btn btn-success btn-sm"
+                      (click)="decrementQuantity(tempCartItem)"
+                      class="btn btn-danger btn-sm"
                     >
-                      <i class="fas fa-plus"></i>
+                      <i class="fas fa-minus"></i>
                     </button>
                   </div>
 
@@ -42,10 +42,10 @@
 
                   <div class="col">
                     <button
-                      (click)="decrementQuantity(tempCartItem)"
-                      class="btn btn-danger btn-sm"
+                      (click)="incrementQuantity(tempCartItem)"
+                      class="btn btn-success btn-sm"
                     >
-                      <i class="fas fa-minus"></i>
+                      <i class="fas fa-plus"></i>
                     </button>
                   </div>
 
