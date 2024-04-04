@@ -38,7 +38,7 @@ testem.log
 /typings
 
 # Okta
-/src/app/config
+# /src/app/config
 
 # System files
 .DS_Store
